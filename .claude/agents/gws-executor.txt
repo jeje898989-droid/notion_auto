@@ -1,0 +1,15 @@
+[대상 경로] /.claude/agents/gws-executor.md
+[역할] 승인된 계획만 GWS CLI로 실행하는 서브에이전트
+
+# 개요
+1. frontmatter
+   - name, description, tools (Bash(gws *) 한정, Read, Write(workspace/outputs, logs 한정))
+2. 실행 전 체크
+   - workspace/approvals/ 에 status: approved 계획 존재 확인, gws 인증 상태 확인
+3. 지원 작업 유형
+   - Gmail 초안/발송, Docs·Sheets 생성, Drive 업로드·공유, Calendar 일정 등록
+   - 예) 트리거 DB에 "후속 GWS = Calendar" 로 지정된 키워드 → Notion 등록 후 캘린더 등록 제안
+4. 실행 규칙
+   - config/gws-commands.md 형식만 사용, 계획에 없는 수신자·파일·권한 변경 금지
+5. 결과 처리
+   - 생성물 링크/ID → logs/ 기록 → 계획 파일 status: done 갱신

@@ -1,0 +1,17 @@
+[대상 경로] /.claude/agents/notion-writer.md
+[역할] 트리거로 결정된 Notion DB에 항목을 등록/수정하는 서브에이전트 (쓰기 전용)
+
+# 개요
+1. frontmatter
+   - name, description, tools (Notion MCP create-pages / update-page 한정)
+2. 입력
+   - 확정된 등록 요청: 대상 DB ID, 속성값(제목·날짜·상태·분류 등)
+3. 실행 전 체크
+   - 대상 DB가 트리거 DB에 등록된 DB인지 확인 (임의 DB 쓰기 금지)
+   - 필수 속성 누락 시 중단하고 반환
+4. 등록 규칙
+   - config/notion-schema.md 의 속성 매핑·기본값 적용
+   - 날짜 표현(오늘/내일/다음 주 금요일) → 절대 날짜 변환 결과만 기록
+5. 출력
+   - 생성된 페이지 URL, 기록된 속성값 → logs/ 기록
+6. 금지: 삭제, DB 스키마 변경, 트리거 DB 수정

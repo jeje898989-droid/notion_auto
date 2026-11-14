@@ -1,0 +1,16 @@
+[대상 경로] /.claude/agents/notion-analyst.md
+[역할] Notion 조회·분석 전담 서브에이전트 (읽기 전용)
+
+# 개요
+1. frontmatter
+   - name, description, tools (Notion MCP 조회 도구 + Write(workspace/ 한정))
+2. 담당 범위
+   - 트리거 키워드 DB 조회 → workspace/cache/trigger-map.json 갱신
+   - 트리거가 가리키는 대상 DB 조회·분석 (오늘/이번 주/지연/상태 등)
+3. 분석 절차
+   - config/trigger-registry.md 로 트리거 해석 → config/notion-schema.md 로 대상 DB 속성 확인
+   - 조회 → 분류·우선순위화
+4. 출력
+   - templates/report/task-report.md 형식 보고서 → workspace/reports/ 저장
+   - 후속 실행 제안 목록 포함
+5. 금지: Notion 쓰기, GWS 명령 실행

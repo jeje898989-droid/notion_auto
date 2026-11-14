@@ -1,0 +1,8 @@
+# Workspace (runtime data) - excluded from upload
+workspace/
+translate/_workspace/
+
+# OS / editor files
+Thumbs.db
+desktop.ini
+.DS_Store

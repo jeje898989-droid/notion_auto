@@ -1,0 +1,21 @@
+[대상 경로] /CLAUDE.md
+[역할] 프로젝트 전체 오케스트레이션 규칙 (세션 시작 시 항상 로드)
+
+# 개요
+1. 프로젝트 목적
+   - "키워드: 내용" 형식의 사용자 입력을 Notion 트리거 키워드 DB로 해석
+   - 해석 결과에 따라 Notion DB 등록/조회 → 보고 → 승인 → GWS 
+   - 모든 사용자 요청은 먼저 route-request 스킬로 처리
+   - 트리거 키워드의 단일 출처 = Notion "트리거 키워드" DB (로컬에서 키워드 하드코딩 금지)
+3. 표준 처리 흐름
+   - [라우팅] 키워드 추출 → 트리거 DB 조회 → 대상 DB·작업 유형 결정
+   - [확인] 등록할 내용/실행 계획을 사용자에게 제시
+   - [실행] Notion 등록(notion-writer) 또는 GWS 실행(gws-executor)
+4. 절대 규칙
+   - 승인 전 Notion 쓰기·메일 발송·파일 생성 금지
+   - 미등록 키워드/키워드 없음 → 추측 금지, 등록된 키워드 목록 제시 후 질문
+   - GWS 실행은 workspace/approvals/ 의 approved 계획만
+   - 모든 쓰기·실행 결과는 logs/ 에 기록
+5. 작업 유형 → 스킬 매핑
+   - 등록 → notion-register / 조회 → notion-task-check / GWS → gws-action
+6. 참조 문서 위치 (config/, templates/), 응답 언어·보고 형식
