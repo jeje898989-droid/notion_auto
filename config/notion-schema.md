@@ -1,7 +1,7 @@
 # Notion Schema
 
 > Role: Property mapping definitions for each trigger target DB
-> Last verified against Notion: 2026-11-14
+> Last verified against Notion: 2026-11-15
 
 ## 1. DB List (1:1 with the target DBs in the rules files)
 
@@ -30,47 +30,48 @@
 
 | Property | Type | Options |
 |---|---|---|
-| 일정 | title | |
+| 일정이름 | title | |
 | 날짜 | date | Use datetime when a time is given |
-| 분류 | select | 약속 / 운동 / 공부 / 취미 / 기타 |
-| 상태 | select | 예정 / 완료 / 취소 |
-| 메모 | text | |
+| 사람 | text | |
+| 중요도 | select | 높음 / 보통 / 낮음 |
+| 위치 | text | |
+| 분류 / 상태 / 메모 | select / select / text | Legacy — kept for old rows, not filled for new items |
 
 ### Work Schedule (업무 일정)
 
 | Property | Type | Options |
 |---|---|---|
-| 업무 | title | |
+| 업무이름 | title | |
+| 등록날짜 | date | Entered manually (default today) |
 | 마감일 | date | |
-| 상태 | select | 시작 전 / 진행 중 / 완료 |
-| 우선순위 | select | 높음 / 보통 / 낮음 |
-| 프로젝트 | text | |
-| 메모 | text | |
+| 공동작업자 | text | |
+| 전송메일 | email | Recipient address |
+| 중요도 | select | 높음 / 보통 / 낮음 (renamed from 우선순위) |
+| 상태 / 프로젝트 / 메모 | select / text / text | Legacy — kept for old rows, not filled for new items |
 
 ### Study Schedule (학습 일정)
 
 | Property | Type | Options |
 |---|---|---|
-| 할 일 | title | |
-| 날짜 | date | Use datetime when a time is given |
-| 과목 | text | |
-| 상태 | select | 예정 / 진행 중 / 완료 |
-| 메모 | text | |
+| 학습주제 | title | |
+| 마감일 | date | Renamed from 날짜; use datetime when a time is given |
+| 요약 | text | |
+| 과목 / 상태 / 메모 | text / select / text | Legacy — kept for old rows, not filled for new items |
 
 ## 3. Natural Language → Property Extraction Rules
 
 - Convert date/time expressions to absolute values (e.g. "tomorrow" → `2026-11-15`).
 - If a time is given, store it as a datetime in the date property (`is_datetime = 1`).
-- Personal Schedule has **no time or location property**: time goes into `날짜` (datetime); location and attendees go into `메모`.
-- Map category words to `분류` options (e.g. 약속/카페/만남 → 약속, 헬스/러닝 → 운동). If none match → `기타`.
+- Personal Schedule: time goes into `날짜` (datetime); location → `위치`; attendees → `사람`.
+- Work Schedule: collaborators → `공동작업자`; recipient email address → `전송메일`.
 
 ## 4. Defaults / Required Properties on Registration
 
 | DB | Required | Defaults |
 |---|---|---|
-| Personal Schedule | `일정`, `날짜` | `상태 = 예정`, `분류 = 기타` (when not inferable) |
-| Work Schedule | `업무` | `상태 = 시작 전`, `우선순위 = 보통` |
-| Study Schedule | `할 일` | `상태 = 예정` |
+| Personal Schedule | `일정이름`, `날짜` | `중요도 = 보통` |
+| Work Schedule | `업무이름`, `마감일` | `등록날짜 = today`, `중요도 = 보통` |
+| Study Schedule | `학습주제`, `마감일` | — |
 | My Tasks | `작업 이름` | `상태 = To-do` group, `담당자 = me` |
 
 - If a required date is missing → ask the user (do not guess).
@@ -84,7 +85,7 @@
 | Query | SQL condition |
 |---|---|
 | Today | `date("date:날짜:start") = {today}` |
-| Overdue | `date("date:날짜:start") < {today} AND "상태" = '예정'` |
+| Overdue | `date("date:날짜:start") < {today} AND ("상태" IS NULL OR "상태" = '예정')` |
 | This week | `date("date:날짜:start") BETWEEN {monday} AND {sunday}` |
 
 ### Work Schedule
@@ -92,16 +93,18 @@
 | Query | SQL condition |
 |---|---|
 | Today | `date("date:마감일:start") = {today}` |
-| Overdue | `date("date:마감일:start") < {today} AND "상태" != '완료'` |
+| Overdue | `date("date:마감일:start") < {today} AND ("상태" IS NULL OR "상태" != '완료')` |
 | This week | `date("date:마감일:start") BETWEEN {monday} AND {sunday}` |
 
 ### Study Schedule
 
 | Query | SQL condition |
 |---|---|
-| Today | `date("date:날짜:start") = {today}` |
-| Overdue | `date("date:날짜:start") < {today} AND "상태" != '완료'` |
-| This week | `date("date:날짜:start") BETWEEN {monday} AND {sunday}` |
+| Today | `date("date:마감일:start") = {today}` |
+| Overdue | `date("date:마감일:start") < {today} AND ("상태" IS NULL OR "상태" != '완료')` |
+| This week | `date("date:마감일:start") BETWEEN {monday} AND {sunday}` |
+
+- New items leave 상태 empty, so "Overdue" also matches every past-due new item (there is no completion flag for them).
 
 ### My Tasks
 

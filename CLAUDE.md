@@ -50,5 +50,21 @@
 - Reference documents
   - `config/` — trigger registry, Notion schema, GWS commands
   - `templates/` — mail templates (`templates/mail/`), report templates (`templates/report/`)
+  - `outputs/` — result files (reports, exports, generated documents)
 - Response language: Korean (technical terms and identifiers keep their original form).
 - Report format: follow `templates/report/` templates; always include the todo list, results, and log location.
+
+## 8. Memo Classification Rules
+
+When the user enters a memo, classify it by its prefix, read the matching rule file, and save it to Notion.
+
+| Prefix | Rule file to read | Target DB |
+|---|---|---|
+| `개인:` | `.claude/rules/nt-personal.md` | Personal Tasks DB (개인 일정) |
+| `업무:` | `.claude/rules/nt-work.md` | Work DB (업무 일정) |
+| `배움:` / `공부:` / `강의:` | `.claude/rules/nt-study.md` | Study DB (학습 일정) |
+
+- The prefix decides the target DB and overrides the classification criteria in the rule files; use the rule file only for property mapping. The approval preview shows the DB, so the user can correct it there.
+- The approval process always applies: present the property mapping → user approval → register via `notion-writer` (§4 still holds).
+- If a required value (e.g. date) is missing, ask the user before presenting the mapping.
+- After saving, output exactly one line: `저장됨: [DB name]` (this replaces the full report format for prefixed memos).

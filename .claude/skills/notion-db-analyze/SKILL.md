@@ -27,7 +27,7 @@ Handle query/analysis requests on the Notion DBs.
 | Date | 오늘, 내일, 이번 주, 이번 달, 지연, 11월 | absolute date range (week = Mon–Sun) |
 | Status | 진행 중, 완료 안 된, 예정 | DB's actual status options |
 | Assignee | 내 것, 나에게 할당된 | `담당자` (My Tasks) |
-| Others | 우선순위 높음, 프로젝트 X, 과목 영어, 분류 운동 | matching property |
+| Others | 중요도 높음, 프로젝트 X, 과목 영어, 분류 운동 | matching property |
 
 - Use the standard queries in `config/notion-schema.md` section 5 where possible.
 - A condition with no matching property → tell the user and ask; never guess.

@@ -6,3 +6,7 @@ translate/_workspace/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Secrets / browser automation artifacts
+.env
+.playwright-mcp/

@@ -13,7 +13,7 @@ description: 승인된 후속 작업을 GWS(Google Workspace) CLI로 실행 — 
 
 ## 0단계 — 사전 체크
 
-1. `gws auth status` 실행. `auth_method`가 `none`이면 → 중단하고 GWS 미연결 상태임을 사용자에게 알린다. (2026-11-14 기준 GWS는 의도적으로 **미연결** 상태.)
+1. `gws auth status` 실행. `auth_method`가 `none`이면 → 중단하고 GWS 미연결 상태임을 사용자에게 알린다.
 2. 계획이 존재하고 상태가 다음 단계를 허용하는지 확인한다 (`workspace/approvals/README.md` 참고).
 
 ## 1단계 — 작업 종류 확인 및 참조 문서 읽기

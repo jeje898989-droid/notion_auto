@@ -19,11 +19,13 @@
 
 | Property | Rule |
 |---|---|
-| 일정 (title) | Core action, e.g. `친구와 카페약속` |
+| 일정이름 (title) | Core action, e.g. `친구와 카페약속` |
 | 날짜 | Absolute date; datetime if a time is given (**required** — ask if missing) |
-| 분류 | 약속 / 운동 / 취미 / 기타 (do **not** use 공부 — study goes to the Study DB) |
-| 상태 | Default `예정` |
-| 메모 | Location, attendees, other details |
+| 사람 (text) | People involved, e.g. `민수, 엄마` |
+| 중요도 | 높음 / 보통 / 낮음 — default `보통`; "중요/꼭" → 높음 |
+| 위치 (text) | Place, e.g. `강남역 스타벅스` |
+
+- Legacy columns 분류 / 상태 / 메모 still exist in the DB (kept for old rows) but are **not filled** for new items.
 
 ## Procedure
 

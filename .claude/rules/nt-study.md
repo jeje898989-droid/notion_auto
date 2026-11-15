@@ -20,11 +20,11 @@
 
 | Property | Rule |
 |---|---|
-| 할 일 (title) | Core task, e.g. `영어 단어 50개 암기` |
-| 날짜 | Absolute date; datetime if a time is given (ask if missing) |
-| 과목 | Subject, e.g. 영어, 파이썬, 정보처리기사 |
-| 상태 | Default `예정` |
-| 메모 | Materials, pages, links, other details |
+| 학습주제 (title) | Core topic/task, e.g. `영어 단어 50개 암기` |
+| 마감일 | Absolute due date; datetime if a time is given (ask if missing) |
+| 요약 (text) | Short summary of what to study — materials, pages, links |
+
+- Legacy columns 과목 / 상태 / 메모 still exist in the DB (kept for old rows) but are **not filled** for new items.
 
 ## Procedure
 

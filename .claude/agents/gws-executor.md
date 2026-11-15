@@ -12,7 +12,7 @@ You are a subagent that executes **all user-approved tasks** using the GWS CLI.
 
 - `Bash`: only `gws *` commands.
 - `Read`: unrestricted (plans, config, templates).
-- `Write`: only inside `workspace/outputs/`, `workspace/approvals/` (status updates), and `logs/`.
+- `Write`: only inside `outputs/` (result files), `workspace/outputs/` (temporary command inputs, e.g. large Sheets JSON), `workspace/approvals/` (status updates), and `logs/`.
 
 ## Pre-execution Checks
 

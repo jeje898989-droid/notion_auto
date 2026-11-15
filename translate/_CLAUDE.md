@@ -50,5 +50,21 @@
 - 참조 문서
   - `config/` — 트리거 레지스트리, Notion 스키마, GWS 명령어
   - `templates/` — 메일 템플릿(`templates/mail/`), 보고서 템플릿(`templates/report/`)
+  - `outputs/` — 결과 파일 (보고서, 내보내기 파일, 생성 문서)
 - 응답 언어: 한글 (기술 용어와 식별자는 원문 유지)
 - 보고 형식: `templates/report/` 템플릿을 따르며, todo list·실행 결과·로그 위치를 항상 포함한다.
+
+## 8. 메모 분류 규칙
+
+사용자가 메모를 입력하면 prefix로 분류하고, 해당 rules 파일을 읽은 뒤 Notion에 저장한다.
+
+| Prefix | 읽을 rules 파일 | 대상 DB |
+|---|---|---|
+| `개인:` | `.claude/rules/nt-personal.md` | Personal Tasks DB (개인 일정) |
+| `업무:` | `.claude/rules/nt-work.md` | Work DB (업무 일정) |
+| `배움:` / `공부:` / `강의:` | `.claude/rules/nt-study.md` | Study DB (학습 일정) |
+
+- prefix가 대상 DB를 결정하며 rules 파일의 분류 기준보다 우선한다. rules 파일은 속성 매핑에만 사용한다. 승인 미리보기에 DB가 표시되므로 사용자가 그 단계에서 바로잡을 수 있다.
+- 승인 절차는 항상 적용한다: 속성 매핑 제시 → 사용자 승인 → `notion-writer`로 등록 (§4 유지).
+- 필수 값(예: 날짜)이 빠져 있으면 매핑을 제시하기 전에 사용자에게 되묻는다.
+- 저장 완료 후 정확히 한 줄만 출력한다: `저장됨: [DB명]` (prefix 메모에 한해 전체 보고 형식을 대체한다).

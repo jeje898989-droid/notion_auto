@@ -24,7 +24,7 @@ Register an item in the Notion DB that matches the request.
 2. Split the content into the DB's properties:
    - Title: the core action/subject (e.g. `친구와 카페약속`).
    - Date/time: convert relative expressions to absolute dates (today = session date). With a time → datetime.
-   - Select properties (분류, 상태, 우선순위): map to existing options only; otherwise apply defaults.
+   - Select properties (중요도): map to existing options only; otherwise apply defaults.
    - Location, attendees, or anything without a matching property → `메모`.
 3. Apply the DB defaults from `config/notion-schema.md`.
 4. If a required property is missing (e.g. date) → ask the user.

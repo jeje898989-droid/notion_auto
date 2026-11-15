@@ -13,7 +13,7 @@ Execute approved follow-up tasks with the GWS CLI.
 
 ## Step 0 — Pre-checks
 
-1. Run `gws auth status`. If `auth_method` is `none` → stop and tell the user GWS is not connected. (As of 2026-11-14 GWS is intentionally **not connected**.)
+1. Run `gws auth status`. If `auth_method` is `none` → stop and tell the user GWS is not connected.
 2. Confirm the plan exists and its status allows the next step (see `workspace/approvals/README.md`).
 
 ## Step 1 — Identify Task Type & Read References

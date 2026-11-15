@@ -19,12 +19,14 @@
 
 | Property | Rule |
 |---|---|
-| 업무 (title) | Core task, e.g. `주간 보고서 작성` |
+| 업무이름 (title) | Core task, e.g. `주간 보고서 작성` |
+| 등록날짜 (date) | Date the item is registered — default today (entered manually, not auto) |
 | 마감일 | Absolute due date (ask if missing) |
-| 상태 | Default `시작 전` |
-| 우선순위 | 높음 / 보통 / 낮음 — default `보통`; "급함/ASAP" → 높음 |
-| 프로젝트 | Project name if mentioned |
-| 메모 | Other details |
+| 공동작업자 (text) | Collaborators mentioned, e.g. `김대리, 박과장` |
+| 전송메일 (email) | Recipient email address if mentioned |
+| 중요도 | 높음 / 보통 / 낮음 — default `보통`; "급함/ASAP" → 높음 |
+
+- Legacy columns 상태 / 프로젝트 / 메모 still exist in the DB (kept for old rows) but are **not filled** for new items.
 
 ## Procedure
 

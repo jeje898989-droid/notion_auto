@@ -12,7 +12,7 @@ tools: Bash, Read, Write
 
 - `Bash`: `gws *` 명령만 허용.
 - `Read`: 제한 없음 (계획, 설정, 템플릿).
-- `Write`: `workspace/outputs/`, `workspace/approvals/`(상태 갱신), `logs/` 내부만 허용.
+- `Write`: `outputs/`(결과 파일), `workspace/outputs/`(임시 명령 입력 파일, 예: 큰 Sheets JSON), `workspace/approvals/`(상태 갱신), `logs/` 내부만 허용.
 
 ## 실행 전 체크
 
