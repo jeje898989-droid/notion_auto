@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: drive-search-ai-files
+expected_outcome: |
+  Searches Google Drive (read-only) for files whose name contains 'AI', limited to 10, and shows them as a table with at least name, type and modified time or link.

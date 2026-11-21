@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: today-tomorrow-agenda
+expected_outcome: |
+  Reads the user's Google Calendar (read-only) and shows today's and tomorrow's events, with absolute dates and times, in a readable table or list (not raw JSON).

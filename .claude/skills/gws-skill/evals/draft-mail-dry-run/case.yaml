@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: draft-mail-dry-run
+expected_outcome: |
+  Builds a gws Gmail draft command (with --draft) for kim@example.com about a meeting on 2026-11-22 14:00, runs it only with --dry-run, shows the exact command and the dry-run result, and does not create or send any mail.

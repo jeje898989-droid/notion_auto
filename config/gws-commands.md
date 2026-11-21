@@ -9,8 +9,14 @@
 - Check version: `gws --version`
 - OAuth client setup (one-time, requires gcloud): `gws auth setup`
   - Or place an OAuth client JSON at `~/.config/gws/client_secret.json`, or set `GOOGLE_WORKSPACE_CLI_CLIENT_ID` / `GOOGLE_WORKSPACE_CLI_CLIENT_SECRET`.
-- Login (opens browser): `gws auth login`
-- Check auth status: `gws auth status` → `auth_method` must not be `none`.
+  - `gws auth setup` cannot create the OAuth client itself: create the consent screen (External, add the owner as a test user) and a **Desktop app** client in Cloud Console, then save its JSON to the path above.
+- Login (opens browser) — always pass scopes explicitly; the `-s` scope picker needs an interactive terminal and silently falls back to openid/email/profile only:
+  ```
+  gws auth login --scopes "https://www.googleapis.com/auth/gmail.compose,https://www.googleapis.com/auth/gmail.readonly,https://www.googleapis.com/auth/calendar,https://www.googleapis.com/auth/documents,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive"
+  ```
+- Check auth status: `gws auth status` → `auth_method` must not be `none`, `token_valid` must be `true`.
+- Re-auth: the OAuth app is in **Testing** status, so refresh tokens expire after ~7 days. On exit code 2, re-run the login command above.
+- Current setup (2026-11-21): GCP project `notion-auto-gws-11211523`, client `gws CLI` (Desktop). See `logs/20261121_gws-auth-setup.md`.
 - Logout: `gws auth logout`
 
 ## 2. Command Formats by Task

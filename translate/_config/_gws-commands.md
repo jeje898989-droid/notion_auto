@@ -9,8 +9,14 @@
 - 버전 확인: `gws --version`
 - OAuth 클라이언트 설정 (최초 1회, gcloud 필요): `gws auth setup`
   - 또는 OAuth 클라이언트 JSON을 `~/.config/gws/client_secret.json`에 두거나, `GOOGLE_WORKSPACE_CLI_CLIENT_ID` / `GOOGLE_WORKSPACE_CLI_CLIENT_SECRET`을 설정한다.
-- 로그인 (브라우저 열림): `gws auth login`
-- 인증 상태 확인: `gws auth status` → `auth_method`가 `none`이 아니어야 한다.
+  - `gws auth setup`은 OAuth 클라이언트를 직접 만들지 못한다. Cloud Console에서 동의 화면(외부, 본인 계정을 테스트 사용자로 추가)과 **데스크톱 앱** 클라이언트를 만든 뒤, JSON을 위 경로에 저장한다.
+- 로그인 (브라우저 열림) — scope를 항상 명시한다. `-s` scope 선택 화면은 대화형 터미널이 필요하며, 없으면 openid/email/profile만 요청된다:
+  ```
+  gws auth login --scopes "https://www.googleapis.com/auth/gmail.compose,https://www.googleapis.com/auth/gmail.readonly,https://www.googleapis.com/auth/calendar,https://www.googleapis.com/auth/documents,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive"
+  ```
+- 인증 상태 확인: `gws auth status` → `auth_method`가 `none`이 아니고 `token_valid`가 `true`여야 한다.
+- 재인증: OAuth 앱이 **테스트 중** 상태라 refresh token이 약 7일 후 만료된다. exit code 2가 나오면 위 로그인 명령을 다시 실행한다.
+- 현재 설정 (2026-11-21): GCP 프로젝트 `notion-auto-gws-11211523`, 클라이언트 `gws CLI` (데스크톱). `logs/20261121_gws-auth-setup.md` 참고.
 - 로그아웃: `gws auth logout`
 
 ## 2. 작업별 명령 형식
